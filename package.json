@@ -1,0 +1,8 @@
+{
+  "name": "save-money-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/RenatRysaev/save-money-api",
+  "author": "Renat Rysaev <renat.rysaev@gmail.com>",
+  "license": "MIT"
+}
