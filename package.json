@@ -4,5 +4,23 @@
   "main": "index.js",
   "repository": "https://github.com/RenatRysaev/save-money-api",
   "author": "Renat Rysaev <renat.rysaev@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon src/runner",
+    "build": "webpack --config=webpack/prod.config.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/register": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "clean-webpack-plugin": "^1.0.0",
+    "nodemon": "^1.18.9",
+    "webpack": "^4.28.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-node-externals": "^1.7.2"
+  }
 }
