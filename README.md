@@ -1,9 +1,9 @@
-##API для проекта [save-money](https://github.com/RenatRysaev/save-money)
+## API для проекта [save-money](https://github.com/RenatRysaev/save-money)
 
 **Запустить в режиме разработки**: `yarn start`
 **Сделать build**: `yarn build`
 
-###Документация endpoints.
+### Документация endpoints.
 
 1. **Авторизация**  
    _Request url_ - `(/api/v1/login)`  
@@ -11,7 +11,7 @@
    _Request payload_ - `{ token: value }`  
    _Response example_ - `{ status: 200 }`
 
-####Используемые зависимости
+#### Используемые зависимости
 
 1. [Express](https://expressjs.com/) - framework for Node.js.
 2. [MongoDB](https://www.mongodb.com/) - data base.
