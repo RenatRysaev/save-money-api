@@ -1,6 +1,7 @@
 ## API для проекта [save-money](https://github.com/RenatRysaev/save-money)
 
 **Запустить в режиме разработки**: `yarn start`
+
 **Сделать build**: `yarn build`
 
 ### Документация endpoints.
