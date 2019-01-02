@@ -15,7 +15,17 @@
     }
   },
   "dependencies": {
-    "express": "^4.16.4"
+    "@babel/polyfill": "^7.2.5",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.4.0",
+    "passport": "^0.4.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-jwt": "^4.0.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -24,11 +34,21 @@
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^1.0.0",
     "husky": "^1.2.1",
+    "module-alias": "^2.1.0",
     "nodemon": "^1.18.9",
     "prettier": "^1.15.3",
     "pretty-quick": "^1.8.0",
     "webpack": "^4.28.2",
     "webpack-cli": "^3.1.2",
     "webpack-node-externals": "^1.7.2"
+  },
+  "_moduleAliases": {
+    "root": "src/",
+    "api": "src/api",
+    "controllers": "src/controllers",
+    "models": "src/models",
+    "mongo": "src/mongo",
+    "utils": "src/utils",
+    "middleware": "src/middleware"
   }
 }
