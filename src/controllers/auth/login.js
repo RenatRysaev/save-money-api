@@ -13,7 +13,9 @@ const login = ({ User }) => async (req, res, next) => {
         return res.send({ msg: 'Такого пользователя не существует' })
       }
 
-      if (user.password === password) {
+      const isMatchPassword = await user.comparePassword(password)
+
+      if (isMatchPassword) {
         const payload = { id: user.id }
         const token = jwt.sign(payload, jwtOptions.secretOrKey)
 

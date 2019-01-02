@@ -1,4 +1,7 @@
 import uuid from 'uuid'
+import jwt from 'jsonwebtoken'
+
+import { jwtOptions } from 'root/passport'
 
 const reg = ({ User }) => async (req, res, next) => {
   try {
@@ -12,10 +15,12 @@ const reg = ({ User }) => async (req, res, next) => {
       }
 
       const user = new User({ name, password, id: uuid.v4() })
+      const payload = { id: user.id }
+      const token = jwt.sign(payload, jwtOptions.secretOrKey)
 
       await user.save()
 
-      return res.send({ name: user.name })
+      return res.send({ name: user.name, id: user.id, token })
     }
 
     res.send({ msg: 'invalid data' })

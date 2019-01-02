@@ -9,17 +9,22 @@ export const jwtOptions = {
 }
 
 const jwtMiddleware = async (jwtPayload, done) => {
-  const { error, user } = await User.findOne({ token: jwtPayload.id })
+  console.log('jwtPayload', jwtPayload)
+  try {
+    const user = await User.findOne({ id: jwtPayload.id })
 
-  if (error) return done(error, false)
+    if (!user) {
+      return done(null, false)
+    }
 
-  if (!user) return done(null, false)
-
-  return done(null, user)
+    return done(null, user)
+  } catch (err) {
+    done(error, false)
+  }
 }
 
-const strategy = new JwtStrategy(jwtOptions, jwtMiddleware)
+const jwtStrategy = new JwtStrategy(jwtOptions, jwtMiddleware)
 
-passport.use(strategy)
+passport.use(jwtStrategy)
 
 export default passport
