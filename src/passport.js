@@ -8,22 +8,19 @@ export const jwtOptions = {
   secretOrKey: 'super-key',
 }
 
-const jwtMiddleware = async (jwtPayload, done) => {
-  console.log('jwtPayload', jwtPayload)
+const jwtStrategy = new JwtStrategy(jwtOptions, async (payload, next) => {
   try {
-    const user = await User.findOne({ id: jwtPayload.id })
+    const user = await User.findOne({ id: payload.id })
 
     if (!user) {
-      return done(null, false)
+      return next(null, false)
     }
 
-    return done(null, user)
+    return next(null, user)
   } catch (err) {
-    done(error, false)
+    next(error, false)
   }
-}
-
-const jwtStrategy = new JwtStrategy(jwtOptions, jwtMiddleware)
+})
 
 passport.use(jwtStrategy)
 

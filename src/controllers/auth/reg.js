@@ -20,6 +20,7 @@ const reg = ({ User }) => async (req, res, next) => {
 
       await user.save()
 
+      // TODO: Нужно ли при регистрации сразу отдавать токен ?
       return res.send({ name: user.name, id: user.id, token })
     }
 

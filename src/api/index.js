@@ -1,14 +1,18 @@
 import express from 'express'
 
 import User from 'models/user'
-import auth from 'controllers/auth'
+import Cost from 'models/cost'
 
-const models = { User }
+import auth from 'controllers/auth'
+import costs from 'controllers/costs'
+
+const models = { User, Cost }
 
 const routersInit = () => {
   const router = express()
 
   router.use(auth(models))
+  router.use('/costs', costs(models))
 
   return router
 }
