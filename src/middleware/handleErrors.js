@@ -1,7 +1,6 @@
-import logger from 'root/logger'
+// import logger from 'root/logger'
 
-const handleErrorsMiddleware = (err, req, res) => {
-  logger.error(err)
+const handleErrorsMiddleware = (req, res) => {
   res.status(500).json({ msg: 'Internal server error' })
 }
 
