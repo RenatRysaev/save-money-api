@@ -3,10 +3,11 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 
-import config from './config'
-import passport from './passport'
+import config from 'root/config'
+import passport from 'root/passport'
 import MongoManager from 'mongo/MongoManager'
 import api from 'api'
+import handleErrorsMiddleware from 'middleware/handleErrors'
 
 const app = express()
 const mongo = new MongoManager(config)
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(passport.initialize())
 app.use('/api/v1', api())
+app.use(handleErrorsMiddleware)
 
 mongo
   .connect()
@@ -23,8 +25,6 @@ mongo
   .catch(error =>
     console.log(`An error occurred while connecting to the MongoDB: ${error}`),
   )
-
-app.get('/', (req, res) => res.send('Hello World with Express'))
 
 const port = process.env.PORT || 8080
 
