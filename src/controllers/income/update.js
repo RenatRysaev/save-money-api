@@ -1,4 +1,4 @@
-const update = ({ Cost }) => async (req, res, next) => {
+const update = ({ Income }) => async (req, res, next) => {
   try {
     const { id } = req.params
     const { name, sum } = req.body
@@ -8,22 +8,22 @@ const update = ({ Cost }) => async (req, res, next) => {
       return res.status(400).json({ msg: 'Invalid req data' })
     }
 
-    const cost = await Cost.findOne({ id })
+    const income = await Income.findOne({ id })
 
-    if (cost.user_id !== user_id) {
+    if (income.user_id !== user_id) {
       return res.status(400).json({ msg: 'Ошибка доступа' })
     }
 
-    const updatedCost = await Cost.findOneAndUpdate(
+    const updatedIncome = await Income.findOneAndUpdate(
       { id },
       {
-        name: name || cost.name,
-        sum: sum || cost.sum,
+        name: name || income.name,
+        sum: sum || income.sum,
       },
       { new: true },
     )
 
-    return res.status(200).json(updatedCost)
+    return res.status(200).json(updatedIncome)
   } catch (err) {
     next(err)
   }

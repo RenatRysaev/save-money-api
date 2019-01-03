@@ -1,10 +1,6 @@
 const list = ({ Cost }) => async (req, res, next) => {
   try {
-    const { user_id } = req.body
-
-    if (!user_id) {
-      return res.status(400).json({ msg: 'invalid req data' })
-    }
+    const { id: user_id } = req.user
 
     const costs = await Cost.find({ user_id })
 
