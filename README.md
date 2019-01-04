@@ -14,6 +14,6 @@
 2. [MongoDB](https://www.mongodb.com/) - data base.
 3. [Passport](http://www.passportjs.org/) - authentication for Node.js.
 4. [Passport-jwt](https://github.com/themikenicholson/passport-jwt) - a Passport strategy for authenticating with a JSON Web Token.
-5. [Lodash](https://lodash.com/docs/4.17.11) = utils.
+5. [Lodash](https://lodash.com/docs/4.17.11) - utils.
 6. [Apidoc](http://apidocjs.com/) - generation documentation.
 7. [Winston](https://github.com/winstonjs/winston) - logger.
