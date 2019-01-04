@@ -1,3 +1,31 @@
+/**
+ * @api {post} /costs/update/:id Update cost
+ * @apiName Update cost
+ * @apiGroup Cost
+ * @apiVersion 1.0.0
+ *
+ * @apiHeader {String} authorization token
+ *
+ * @apiParam {String} id Cost id
+ * @apiParam {String} [sum] Cost sum
+ * @apiParam {String} [name] Cost name
+ *
+ * @apiSuccess {String} name - Cost name
+ * @apiSuccess {String} id - Cost id
+ * @apiSuccess {String} date - Planned consumption date(format - MM:YYYY)
+ * @apiSuccess {String} sum - Cost sum
+ * @apiSuccess {String} user_id - User id which belongs cost
+ *
+ * @apiSuccessExample Success-Response:
+ *  {
+ *      name: 'some name',
+ *      id: 'some id',
+ *      date: '12.2018',
+ *      sum: '555',
+ *      user_id: 'some user id',
+ *  }
+ */
+
 const update = ({ Cost }) => async (req, res, next) => {
   try {
     const { id } = req.params

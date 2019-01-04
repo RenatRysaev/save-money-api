@@ -1,3 +1,27 @@
+/**
+ * @api {post} /income/remove/:id Remove income
+ * @apiName Remove income
+ * @apiGroup Income
+ * @apiVersion 1.0.0
+ *
+ * @apiHeader {String} authorization token
+ *
+ * @apiParam {String} id Income id
+ *
+ * @apiSuccess {String} name - Income name
+ * @apiSuccess {String} id - Income id
+ * @apiSuccess {String} sum - Income sum
+ * @apiSuccess {String} user_id - User id which belongs income
+ *
+ * @apiSuccessExample Success-Response:
+ *  {
+ *      name: 'some name',
+ *      id: 'some id',
+ *      sum: '555',
+ *      user_id: 'some user id',
+ *  }
+ */
+
 const remove = ({ Income }) => async (req, res, next) => {
   try {
     const { id } = req.params

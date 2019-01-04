@@ -2,6 +2,23 @@ import jwt from 'jsonwebtoken'
 
 import { jwtOptions } from 'root/passport'
 
+/**
+ * @api {post} /login User login
+ * @apiName Login
+ * @apiGroup Auth
+ * @apiVersion 1.0.0
+ *
+ * @apiParam {String} name User name
+ * @apiParam {String} password User password
+ *
+ * @apiSuccess {String} token - Token
+ *
+ * @apiSuccessExample Success-Response:
+ *  {
+ *      token: 'some token'
+ *  }
+ */
+
 const login = ({ User }) => async (req, res, next) => {
   try {
     const { name, password } = req.body
@@ -10,7 +27,9 @@ const login = ({ User }) => async (req, res, next) => {
       const user = await User.findOne({ name })
 
       if (!user) {
-        return res.send({ msg: 'Такого пользователя не существует' })
+        return res
+          .status(401)
+          .json({ msg: 'Такого пользователя не существует' })
       }
 
       const isMatchPassword = await user.comparePassword(password)
@@ -19,10 +38,10 @@ const login = ({ User }) => async (req, res, next) => {
         const payload = { id: user.id }
         const token = jwt.sign(payload, jwtOptions.secretOrKey)
 
-        return res.send({ msg: 'ok', token })
+        return res.status(200).json({ msg: 'ok', token })
       }
 
-      res.send({ status: 401, msg: 'Неправильные имя или пароль' })
+      res.status(401).json({ msg: 'Неправильные имя или пароль' })
     }
   } catch (err) {
     next(err)

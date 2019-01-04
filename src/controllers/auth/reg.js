@@ -3,6 +3,27 @@ import jwt from 'jsonwebtoken'
 
 import { jwtOptions } from 'root/passport'
 
+/**
+ * @api {post} /reg User registration
+ * @apiName Registration
+ * @apiGroup Auth
+ * @apiVersion 1.0.0
+ *
+ * @apiParam {String} name User name
+ * @apiParam {String} password User password
+ *
+ * @apiSuccess {String} name - User name
+ * @apiSuccess {String} id - User id
+ * @apiSuccess {String} token - Token
+ *
+ * @apiSuccessExample Success-Response:
+ *  {
+ *      name: 'some name',
+ *      id: 'some id',
+ *      token: 'some token'
+ *  }
+ */
+
 const reg = ({ User }) => async (req, res, next) => {
   try {
     const { name, password } = req.body
