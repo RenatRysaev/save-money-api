@@ -1,5 +1,4 @@
 import uuid from 'uuid'
-import jwt from 'jsonwebtoken'
 
 import { jwtOptions } from 'root/passport'
 
