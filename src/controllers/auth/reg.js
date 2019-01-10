@@ -14,13 +14,11 @@ import { jwtOptions } from 'root/passport'
  *
  * @apiSuccess {String} name - User name
  * @apiSuccess {String} id - User id
- * @apiSuccess {String} token - Token
  *
  * @apiSuccessExample Success-Response:
  *  {
  *      name: 'some name',
  *      id: 'some id',
- *      token: 'some token'
  *  }
  */
 
@@ -36,13 +34,11 @@ const reg = ({ User }) => async (req, res, next) => {
       }
 
       const user = new User({ name, password, id: uuid.v4() })
-      const payload = { id: user.id }
-      const token = jwt.sign(payload, jwtOptions.secretOrKey)
 
       await user.save()
 
       // TODO: Нужно ли при регистрации сразу отдавать токен ?
-      return res.send({ name: user.name, id: user.id, token })
+      return res.send({ name: user.name, id: user.id })
     }
 
     res.send({ msg: 'invalid data' })
