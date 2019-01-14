@@ -29,18 +29,19 @@ const reg = ({ User }) => async (req, res, next) => {
       const createdUser = await User.findOne({ name })
 
       if (createdUser) {
-        return res.send({ msg: 'Такой пользователь уже существует' })
+        return res
+          .status(403)
+          .send({ msg: 'Такой пользователь уже существует' })
       }
 
       const user = new User({ name, password, id: uuid.v4() })
 
       await user.save()
 
-      // TODO: Нужно ли при регистрации сразу отдавать токен ?
-      return res.send({ name: user.name, id: user.id })
+      return res.status(200).json({ name: user.name, id: user.id })
     }
 
-    res.send({ msg: 'invalid data' })
+    res.status(400).json({ msg: 'invalid data' })
   } catch (err) {
     next(err)
   }
