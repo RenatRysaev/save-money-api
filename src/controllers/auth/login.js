@@ -14,9 +14,11 @@ import { jwtOptions } from 'root/passport'
  * @apiSuccess {String} token - Token
  *
  * @apiSuccessExample Success-Response:
- *  {
- *      token: 'some token'
- *  }
+ *    {
+ *        token: 'some token',
+ *        id: 'some id',
+ *        name: 'some name'
+ *    },
  */
 
 const login = ({ User }) => async (req, res, next) => {
