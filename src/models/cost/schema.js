@@ -21,11 +21,6 @@ const CostSchema = new Schema({
     required: true,
     unique: false,
   },
-  date: {
-    type: String,
-    required: true,
-    unique: false,
-  },
 })
 
 export default CostSchema
