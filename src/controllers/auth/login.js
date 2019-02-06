@@ -13,6 +13,8 @@ import { jwtOptions } from 'root/passport'
  * @apiParam {String} password User password
  *
  * @apiSuccess {String} token - Token
+ * @apiSuccess {String} id - User id
+ * @apiSuccess {String} name - User name
  *
  * @apiSuccessExample Success-Response:
  *    {
@@ -43,7 +45,6 @@ const login = ({ User }) => async (req, res, next) => {
 
         return res.status(200).json({
           ...pick(user, ['name', 'id']),
-          msg: 'ok',
           token: `Bearer ${token}`,
         })
       }

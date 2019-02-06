@@ -21,6 +21,11 @@ const CostSchema = new Schema({
     required: true,
     unique: false,
   },
+  description: {
+    type: String,
+    required: false,
+    unique: false,
+  },
 })
 
 export default CostSchema
