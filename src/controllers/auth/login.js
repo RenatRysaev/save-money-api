@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import pick from 'lodash/pick'
 
 import { jwtOptions } from 'root/passport'
 
@@ -40,7 +41,11 @@ const login = ({ User }) => async (req, res, next) => {
         const payload = { id: user.id }
         const token = jwt.sign(payload, jwtOptions.secretOrKey)
 
-        return res.status(200).json({ msg: 'ok', token: `Bearer ${token}` })
+        return res.status(200).json({
+          ...pick(user, ['name', 'id']),
+          msg: 'ok',
+          token: `Bearer ${token}`,
+        })
       }
 
       res.status(401).json({ msg: 'Неправильные имя или пароль' })
