@@ -6,6 +6,15 @@ import list from './list'
 import remove from './remove'
 import update from './update'
 
+const incomeController = {
+  create,
+  list,
+  remove,
+  update,
+}
+
+export default incomeController
+
 const income = models => {
   const api = router()
 
@@ -30,4 +39,4 @@ const income = models => {
   return api
 }
 
-export default income
+// export default income

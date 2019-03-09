@@ -2,7 +2,7 @@ import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
 
 /**
- * @api {post} /group/remove_user/:id Remove user from group
+ * @api {delete} /group/user/:id Remove user from group
  * @apiName Remove user from group
  * @apiGroup Group
  * @apiVersion 1.0.0
@@ -20,40 +20,39 @@ import asyncHandler from 'express-async-handler'
  *  }
  */
 
-const removeUser = ({ Group }) =>
-  asyncHandler(async (req, res) => {
-    const { id: current_user_id } = req.user
-    const { id: user_id } = req.params
-    const { group_id } = req.body
+const removeUser = asyncHandler(async (req, res) => {
+  const { id: current_user_id } = req.user
+  const { id: user_id } = req.params
+  const { group_id } = req.body
 
-    if (!group_id || !user_id) {
-      return res.status(400).json({ error: 'invalid data' })
-    }
+  if (!group_id || !user_id) {
+    return res.status(400).json({ error: 'invalid data' })
+  }
 
-    const group = await Group.findById(group_id)
+  const group = await Group.findById(group_id)
 
-    if (!group) {
-      return res.status(400).json({ error: 'No such group' })
-    }
+  if (!group) {
+    return res.status(400).json({ error: 'No such group' })
+  }
 
-    const isCreator = group.creator_user_id === current_user_id
+  const isCreator = group.creator_user_id === current_user_id
 
-    if (!isCreator) {
-      return res.status(403).json({ error: 'Forbidden' })
-    }
+  if (!isCreator) {
+    return res.status(403).json({ error: 'Forbidden' })
+  }
 
-    const newDataForGroup = {
-      ...group._doc,
-      users_id: group.users_id.filter(id => id !== user_id),
-    }
+  const newDataForGroup = {
+    ...group._doc,
+    users_id: group.users_id.filter(id => id !== user_id),
+  }
 
-    const updatedGroup = await Group.findByIdAndUpdate(
-      group_id,
-      newDataForGroup,
-      { new: true },
-    )
+  const updatedGroup = await Group.findByIdAndUpdate(
+    group_id,
+    newDataForGroup,
+    { new: true },
+  )
 
-    return res.status(200).json(pick(updatedGroup, ['id', 'name', 'users_id']))
-  })
+  return res.status(200).json(pick(updatedGroup, ['id', 'name', 'users_id']))
+})
 
 export default removeUser

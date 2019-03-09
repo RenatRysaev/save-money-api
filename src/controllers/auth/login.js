@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken'
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
 
+import User from 'models/user'
+
 import { jwtOptions } from 'root/passport'
 
 /**
@@ -25,33 +27,32 @@ import { jwtOptions } from 'root/passport'
  *    },
  */
 
-const login = ({ User }) =>
-  asyncHandler(async (req, res) => {
-    const { name, password } = req.body
+const login = asyncHandler(async (req, res) => {
+  const { name, password } = req.body
 
-    if (!name || !password) {
-      return res.status(401).json({ error: 'Invalid data' })
-    }
+  if (!name || !password) {
+    return res.status(401).json({ error: 'Invalid data' })
+  }
 
-    const user = await User.findOne({ name })
+  const user = await User.findOne({ name })
 
-    if (!user) {
-      return res.status(401).json({ error: 'Wrong name or password' })
-    }
-
-    const isMatchPassword = await user.comparePassword(password)
-
-    if (isMatchPassword) {
-      const payload = { id: user.id }
-      const token = jwt.sign(payload, jwtOptions.secretOrKey)
-
-      return res.status(200).json({
-        ...pick(user, ['name', 'id']),
-        token: `Bearer ${token}`,
-      })
-    }
-
+  if (!user) {
     return res.status(401).json({ error: 'Wrong name or password' })
-  })
+  }
+
+  const isMatchPassword = await user.comparePassword(password)
+
+  if (isMatchPassword) {
+    const payload = { id: user.id }
+    const token = jwt.sign(payload, jwtOptions.secretOrKey)
+
+    return res.status(200).json({
+      ...pick(user, ['name', 'id']),
+      token: `Bearer ${token}`,
+    })
+  }
+
+  return res.status(401).json({ error: 'Wrong name or password' })
+})
 
 export default login

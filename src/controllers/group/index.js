@@ -8,6 +8,16 @@ import update from './update'
 import addUser from './addUser'
 import removeUser from './removeUser'
 
+const groupCotroller = {
+  create,
+  remove,
+  update,
+  addUser,
+  removeUser,
+}
+
+export default groupCotroller
+
 const group = models => {
   const api = router()
 
@@ -45,4 +55,4 @@ const group = models => {
   return api
 }
 
-export default group
+// export default group

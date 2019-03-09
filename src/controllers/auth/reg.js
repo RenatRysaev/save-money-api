@@ -2,6 +2,8 @@ import { jwtOptions } from 'root/passport'
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
 
+import User from 'models/user'
+
 /**
  * @api {post} /reg User registration
  * @apiName Registration
@@ -21,25 +23,24 @@ import asyncHandler from 'express-async-handler'
  *  }
  */
 
-const reg = ({ User }) =>
-  asyncHandler(async (req, res) => {
-    const { name, password } = req.body
+const reg = asyncHandler(async (req, res) => {
+  const { name, password } = req.body
 
-    if (!name || !password) {
-      return res.status(400).json({ error: 'Invalid data' })
-    }
+  if (!name || !password) {
+    return res.status(400).json({ error: 'Invalid data' })
+  }
 
-    const createdUser = await User.findOne({ name })
+  const createdUser = await User.findOne({ name })
 
-    if (createdUser) {
-      return res.status(400).json({ error: 'Already exists' })
-    }
+  if (createdUser) {
+    return res.status(400).json({ error: 'Already exists' })
+  }
 
-    const user = new User({ name, password })
+  const user = new User({ name, password })
 
-    await user.save()
+  await user.save()
 
-    return res.status(200).json(pick(user, ['name', 'id']))
-  })
+  return res.status(200).json(pick(user, ['name', 'id']))
+})
 
 export default reg

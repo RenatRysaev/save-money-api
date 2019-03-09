@@ -58,6 +58,7 @@
     "mongo": "src/mongo",
     "utils": "src/utils",
     "middleware": "src/middleware",
-    "config": "src/config"
+    "config": "src/config",
+    "routes": "src/routes"
   }
 }

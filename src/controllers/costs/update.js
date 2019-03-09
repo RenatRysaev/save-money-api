@@ -2,7 +2,7 @@ import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
 
 /**
- * @api {post} /costs/update/:id Update cost
+ * @api {patch} /costs/:id Update cost
  * @apiName Update cost
  * @apiGroup Cost
  * @apiVersion 1.0.0
@@ -27,34 +27,33 @@ import asyncHandler from 'express-async-handler'
  *  }
  */
 
-const update = ({ Cost }) =>
-  asyncHandler(async (req, res) => {
-    const { id: costId } = req.params
-    const { name, sum } = req.body
-    const { id: user_id } = req.user
+const update = asyncHandler(async (req, res) => {
+  const { id: costId } = req.params
+  const { name, sum } = req.body
+  const { id: user_id } = req.user
 
-    if (!costId) {
-      return res.status(400).json({ error: 'Invalid req data' })
-    }
+  if (!costId) {
+    return res.status(400).json({ error: 'Invalid req data' })
+  }
 
-    const cost = await Cost.findById(costId)
+  const cost = await Cost.findById(costId)
 
-    if (cost.user_id !== user_id) {
-      return res.status(403).json({ error: 'Forbidden' })
-    }
+  if (cost.user_id !== user_id) {
+    return res.status(403).json({ error: 'Forbidden' })
+  }
 
-    const updatedCost = await Cost.findByIdAndUpdate(
-      costId,
-      {
-        name: name || cost.name,
-        sum: sum || cost.sum,
-      },
-      { new: true },
-    )
+  const updatedCost = await Cost.findByIdAndUpdate(
+    costId,
+    {
+      name: name || cost.name,
+      sum: sum || cost.sum,
+    },
+    { new: true },
+  )
 
-    return res
-      .status(200)
-      .json(pick(updatedCost, ['id', 'name', 'sum', 'group_id']))
-  })
+  return res
+    .status(200)
+    .json(pick(updatedCost, ['id', 'name', 'sum', 'group_id']))
+})
 
 export default update

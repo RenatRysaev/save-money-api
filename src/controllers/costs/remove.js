@@ -2,7 +2,7 @@ import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
 
 /**
- * @api {post} /costs/remove/:id Remove cost
+ * @api {delete} /costs/:id Remove cost
  * @apiName Remove cost
  * @apiGroup Cost
  * @apiVersion 1.0.0
@@ -19,28 +19,27 @@ import asyncHandler from 'express-async-handler'
  *  }
  */
 
-const remove = ({ Cost }) =>
-  asyncHandler(async (req, res) => {
-    const { id: costId } = req.params
-    const { id: user_id } = req.user
+const remove = asyncHandler(async (req, res) => {
+  const { id: costId } = req.params
+  const { id: user_id } = req.user
 
-    if (!costId) {
-      return res.status(400).json({ error: 'invalid req data' })
-    }
+  if (!costId) {
+    return res.status(400).json({ error: 'invalid req data' })
+  }
 
-    const cost = await Cost.findById(costId)
+  const cost = await Cost.findById(costId)
 
-    if (!cost) {
-      return res.status(400).json({ error: 'No such category' })
-    }
+  if (!cost) {
+    return res.status(400).json({ error: 'No such category' })
+  }
 
-    if (cost.user_id !== user_id) {
-      return res.status(403).json({ error: 'Forbidden' })
-    }
+  if (cost.user_id !== user_id) {
+    return res.status(403).json({ error: 'Forbidden' })
+  }
 
-    const deletedCost = await Cost.findByIdAndRemove(costId)
+  const deletedCost = await Cost.findByIdAndRemove(costId)
 
-    return res.status(200).json(pick(deletedCost, ['id']))
-  })
+  return res.status(200).json(pick(deletedCost, ['id']))
+})
 
 export default remove

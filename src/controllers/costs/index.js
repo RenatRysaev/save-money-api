@@ -6,6 +6,17 @@ import list from './list'
 import remove from './remove'
 import update from './update'
 
+// скормить модель здесь, чтобы не импортировать везде
+
+const costsController = {
+  create,
+  list,
+  remove,
+  update,
+}
+
+export default costsController
+
 const costs = models => {
   const api = router()
 
@@ -30,4 +41,4 @@ const costs = models => {
   return api
 }
 
-export default costs
+// export default costs

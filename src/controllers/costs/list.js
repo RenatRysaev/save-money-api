@@ -21,13 +21,12 @@ import asyncHandler from 'express-async-handler'
  *  }]
  */
 
-const list = ({ Cost }) =>
-  asyncHandler(async (req, res) => {
-    const { id: user_id } = req.user
+const list = asyncHandler(async (req, res) => {
+  const { id: user_id } = req.user
 
-    const costs = await Cost.find({ user_id }, 'id name sum group_id')
+  const costs = await Cost.find({ user_id }, 'id name sum group_id')
 
-    return res.status(200).json(costs)
-  })
+  return res.status(200).json(costs)
+})
 
 export default list

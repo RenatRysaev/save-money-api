@@ -21,20 +21,19 @@ import asyncHandler from 'express-async-handler'
  *  }
  */
 
-const create = ({ Group }) =>
-  asyncHandler(async (req, res) => {
-    const { name } = req.body
-    const { id: creator_user_id } = req.user
+const create = asyncHandler(async (req, res) => {
+  const { name } = req.body
+  const { id: creator_user_id } = req.user
 
-    if (!name) {
-      return res.status(400).json({ error: 'invalid data' })
-    }
+  if (!name) {
+    return res.status(400).json({ error: 'invalid data' })
+  }
 
-    const group = new Group({ name, creator_user_id })
+  const group = new Group({ name, creator_user_id })
 
-    await group.save()
+  await group.save()
 
-    return res.status(201).json(pick(group, ['id', 'name']))
-  })
+  return res.status(201).json(pick(group, ['id', 'name']))
+})
 
 export default create

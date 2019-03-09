@@ -2,7 +2,7 @@ import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
 
 /**
- * @api {post} /income/update/:id Update income
+ * @api {patch} /income/:id Update income
  * @apiName Update income
  * @apiGroup Income
  * @apiVersion 1.0.0
@@ -27,32 +27,31 @@ import asyncHandler from 'express-async-handler'
  *  }
  */
 
-const update = ({ Income }) =>
-  asyncHandler(async (req, res) => {
-    const { id: incomeId } = req.params
-    const { name, sum } = req.body
-    const { id: user_id } = req.user
+const update = asyncHandler(async (req, res) => {
+  const { id: incomeId } = req.params
+  const { name, sum } = req.body
+  const { id: user_id } = req.user
 
-    if (!incomeId) {
-      return res.status(400).json({ error: 'Invalid req data' })
-    }
+  if (!incomeId) {
+    return res.status(400).json({ error: 'Invalid req data' })
+  }
 
-    const income = await Income.findById(incomeId)
+  const income = await Income.findById(incomeId)
 
-    if (income.user_id !== user_id) {
-      return res.status(403).json({ error: 'Forbidden' })
-    }
+  if (income.user_id !== user_id) {
+    return res.status(403).json({ error: 'Forbidden' })
+  }
 
-    const updatedIncome = await Income.findByIdAndRemove(
-      incomeId,
-      {
-        name: name || income.name,
-        sum: sum || income.sum,
-      },
-      { new: true },
-    )
+  const updatedIncome = await Income.findByIdAndRemove(
+    incomeId,
+    {
+      name: name || income.name,
+      sum: sum || income.sum,
+    },
+    { new: true },
+  )
 
-    return res.status(200).json(pick(updatedIncome, ['id', 'name', 'sum']))
-  })
+  return res.status(200).json(pick(updatedIncome, ['id', 'name', 'sum']))
+})
 
 export default update

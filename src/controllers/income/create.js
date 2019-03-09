@@ -27,20 +27,19 @@ import asyncHandler from 'express-async-handler'
  *  }
  */
 
-const create = ({ Income }) =>
-  asyncHandler(async (req, res) => {
-    const { name, sum, group_id } = req.body
-    const { id: user_id } = req.user
+const create = asyncHandler(async (req, res) => {
+  const { name, sum, group_id } = req.body
+  const { id: user_id } = req.user
 
-    if (!name || !sum) {
-      return res.status(400).json({ error: 'invalid data' })
-    }
+  if (!name || !sum) {
+    return res.status(400).json({ error: 'invalid data' })
+  }
 
-    const income = new Income({ name, sum, user_id, group_id })
+  const income = new Income({ name, sum, user_id, group_id })
 
-    await income.save()
+  await income.save()
 
-    return res.status(201).json(pick(income, ['name', 'id', 'sum', 'group_id']))
-  })
+  return res.status(201).json(pick(income, ['name', 'id', 'sum', 'group_id']))
+})
 
 export default create

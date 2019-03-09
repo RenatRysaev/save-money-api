@@ -5,6 +5,14 @@ import reg from './reg'
 import login from './login'
 import checkLogin from './checkLogin'
 
+const authController = {
+  reg,
+  login,
+  checkLogin,
+}
+
+export default authController
+
 const auth = models => {
   const api = router()
 
@@ -20,4 +28,4 @@ const auth = models => {
   return api
 }
 
-export default auth
+// export default auth
