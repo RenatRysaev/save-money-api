@@ -1,5 +1,7 @@
 import asyncHandler from 'express-async-handler'
 
+import Income from 'models/income'
+
 /**
  * @api {get} /income Get income list
  * @apiName Get income list

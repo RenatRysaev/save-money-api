@@ -1,6 +1,8 @@
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
 
+import Group from 'models/group'
+
 /**
  * @api {patch} /group/:id Update group
  * @apiName Update group

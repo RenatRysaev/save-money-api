@@ -1,6 +1,8 @@
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
 
+import Group from 'models/group'
+
 /**
  * @api {delete} /group/:id Remove group
  * @apiName Remove group

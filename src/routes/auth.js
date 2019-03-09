@@ -1,18 +1,18 @@
 import { Router } from 'express'
 import passport from 'passport'
 
-import authController from 'controllers/auth'
+import controller from 'controllers/auth'
 
 const router = new Router()
 
-router.post('/v1/reg', authController.reg)
+router.post('/v1/reg', controller.reg)
 
-router.post('/v1/login', authController.login)
+router.post('/v1/login', controller.login)
 
 router.post(
   '/v1/check_login',
   passport.authenticate('jwt', { session: false }),
-  authController.checkLogin,
+  controller.checkLogin,
 )
 
 export default router

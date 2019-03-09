@@ -1,6 +1,8 @@
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
 
+import Income from 'models/income'
+
 /**
  * @api {delete} /income/:id Remove income
  * @apiName Remove income

@@ -1,6 +1,8 @@
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
 
+import Group from 'models/group'
+
 /**
  * @api {post} /group/create Create group
  * @apiName Create group

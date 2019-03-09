@@ -10,7 +10,6 @@ import logger from 'root/logger'
 import mongoConfig from 'config/mongo'
 import passport from 'root/passport'
 import MongoManager from 'mongo/MongoManager'
-// import api from 'api'
 import appRouter from 'routes'
 import handleErrorsMiddleware from 'middleware/handleErrors'
 
@@ -22,7 +21,7 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(passport.initialize())
-// app.use('/api', api())
+
 app.use('/api', appRouter())
 app.use(handleErrorsMiddleware)
 

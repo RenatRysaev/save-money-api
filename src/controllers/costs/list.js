@@ -1,5 +1,7 @@
 import asyncHandler from 'express-async-handler'
 
+import Cost from 'models/cost'
+
 /**
  * @api {get} /costs Get cost list
  * @apiName Get cost list

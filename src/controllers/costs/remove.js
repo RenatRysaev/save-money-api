@@ -1,6 +1,8 @@
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
 
+import Cost from 'models/cost'
+
 /**
  * @api {delete} /costs/:id Remove cost
  * @apiName Remove cost
