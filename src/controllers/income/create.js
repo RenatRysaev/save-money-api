@@ -1,3 +1,5 @@
+import pick from 'lodash/pick'
+
 /**
  * @api {post} /income/create Create income
  * @apiName Create income
@@ -8,44 +10,36 @@
  *
  * @apiParam {String} name Income name
  * @apiParam {String} sum Income sum
- * @apiParam {String} id Income id
+ * @apiParam {String} group_id Group id
  *
  * @apiSuccess {String} name - Income name
  * @apiSuccess {String} id - Income id
  * @apiSuccess {String} sum - Income sum
- * @apiSuccess {String} user_id - User id which belongs income
+ * @apiSuccess {String} [group_id] Group id
  *
  * @apiSuccessExample Success-Response:
  *  {
- *      name: 'some name',
- *      id: 'some id',
- *      sum: '555',
- *      user_id: 'some user id',
+ *      name: 'salaries',
+ *      id: '123',
+ *      sum: '1000',
+ *      group_id: '634634',
  *  }
  */
 
 const create = ({ Income }) => async (req, res, next) => {
   try {
-    const { name, sum, id } = req.body
+    const { name, sum, group_id } = req.body
     const { id: user_id } = req.user
 
-    if (name && sum && id) {
-      const createdIncome = await Income.findOne({ id })
-
-      if (createdIncome) {
-        return res
-          .status(400)
-          .json({ msg: 'Такая категория доходов уже существует' })
-      }
-
-      const income = new Income({ name, sum, id, user_id })
-
-      await income.save()
-
-      return res.status(201).json(income)
+    if (!name || !sum) {
+      return res.status(400).json({ error: 'invalid data' })
     }
 
-    return res.send({ msg: 'invalid req data' })
+    const income = new Income({ name, sum, user_id, group_id })
+
+    await income.save()
+
+    return res.status(201).json(pick(income, ['name', 'id', 'sum', 'group_id']))
   } catch (err) {
     console.log(err)
     next(err)

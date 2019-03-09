@@ -8,50 +8,43 @@ import pick from 'lodash/pick'
  *
  * @apiHeader {String} authorization token
  *
- *
- * @apiParam {String} id Cost id
  * @apiParam {String} name Cost name
  * @apiParam {String} sum Cost sum
  * @apiParam {String} [description] Cost description
+ * @apiParam {String} [group_id] Group id
  *
  * @apiSuccess {String} name - Cost name
  * @apiSuccess {String} id - Cost id
  * @apiSuccess {String} sum - Cost sum
  * @apiSuccess {String} [description] - Cost description
+ * @apiSuccess {String} [group_id] - Group id
  *
  * @apiSuccessExample Success-Response:
  *  {
- *      name: 'some name',
- *      id: 'some id',
- *      sum: '555',
- *      description: 'Lorem ipsum'
+ *      name: 'Food',
+ *      id: '123',
+ *      sum: '1000',
+ *      description: 'Food costs',
+ *      group_id: 268,
  *  }
  */
 
 const create = ({ Cost }) => async (req, res, next) => {
   try {
-    const { name, sum, id, description } = req.body
+    const { name, sum, description, group_id } = req.body
     const { id: user_id } = req.user
 
-    if (name && sum && id) {
-      const createdCost = await Cost.findOne({ id })
-
-      if (createdCost) {
-        return res
-          .status(400)
-          .json({ msg: 'Такая категория расходов уже существует' })
-      }
-
-      const cost = new Cost({ name, sum, id, user_id, description })
-
-      await cost.save()
-
-      return res
-        .status(201)
-        .json(pick(cost, ['name', 'sum', 'id', 'description']))
+    if (!name || !sum) {
+      return res.status(400).json({ error: 'invalid req data' })
     }
 
-    return res.status(400).json({ msg: 'invalid req data' })
+    const cost = new Cost({ name, sum, user_id, description, group_id })
+
+    await cost.save()
+
+    return res
+      .status(201)
+      .json(pick(cost, ['name', 'sum', 'id', 'description', 'group_id']))
   } catch (err) {
     console.log(err)
     next(err)

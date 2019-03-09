@@ -1,26 +1,21 @@
 import { Schema } from 'mongoose'
 
-const IncomeSchema = new Schema({
-  user_id: {
-    type: String,
-    required: true,
-    unique: false,
-  },
-  group_id: {
-    type: String,
-    required: false,
-    false: false,
-  },
+const GroupSchema = new Schema({
   name: {
     type: String,
     required: true,
     unique: false,
   },
-  sum: {
+  users_id: {
+    type: [String],
+    required: false,
+    unique: false,
+  },
+  creator_user_id: {
     type: String,
     required: true,
     unique: false,
   },
 })
 
-export default IncomeSchema
+export default GroupSchema

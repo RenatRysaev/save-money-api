@@ -10,7 +10,7 @@ export const jwtOptions = {
 
 const jwtStrategy = new JwtStrategy(jwtOptions, async (payload, next) => {
   try {
-    const user = await User.findOne({ id: payload.id })
+    const user = await User.findById(payload.id)
 
     if (!user) {
       return next(null, false)
@@ -18,7 +18,7 @@ const jwtStrategy = new JwtStrategy(jwtOptions, async (payload, next) => {
 
     return next(null, user)
   } catch (err) {
-    next(error, false)
+    next(err, false)
   }
 })
 

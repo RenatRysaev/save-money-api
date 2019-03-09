@@ -6,10 +6,10 @@ const CostSchema = new Schema({
     required: true,
     unique: false,
   },
-  id: {
+  group_id: {
     type: String,
-    required: true,
-    unique: true,
+    required: false,
+    false: false,
   },
   name: {
     type: String,

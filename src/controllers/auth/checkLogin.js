@@ -1,4 +1,5 @@
 import { jwtOptions } from 'root/passport'
+import pick from 'lodash/pick'
 
 /**
  * @api {post} /check-login User check login
@@ -9,19 +10,19 @@ import { jwtOptions } from 'root/passport'
  * @apiHeader {String} authorization token
  *
  * @apiSuccessExample Success-Response:
- *    {
- *        id: 'some id',
- *        name: 'some name'
- *    },
+ *  {
+ *    id: '123',
+ *    name: 'John'
+ *  },
  */
 
 const checkLogin = ({ User }) => async (req, res, next) => {
   try {
     const { id: user_id } = req.user
 
-    const user = await User.findOne({ id: user_id })
+    const user = await User.findById(user_id)
 
-    res.status(200).json({ id: user.id, name: user.name })
+    res.status(200).json(pick(user, ['id', 'name']))
   } catch (err) {
     next(err)
   }

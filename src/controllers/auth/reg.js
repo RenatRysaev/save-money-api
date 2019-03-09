@@ -1,6 +1,5 @@
-import uuid from 'uuid'
-
 import { jwtOptions } from 'root/passport'
+import pick from 'lodash/pick'
 
 /**
  * @api {post} /reg User registration
@@ -16,8 +15,8 @@ import { jwtOptions } from 'root/passport'
  *
  * @apiSuccessExample Success-Response:
  *  {
- *      name: 'some name',
- *      id: 'some id',
+ *      name: 'Alex',
+ *      id: '879',
  *  }
  */
 
@@ -25,23 +24,21 @@ const reg = ({ User }) => async (req, res, next) => {
   try {
     const { name, password } = req.body
 
-    if (name && password) {
-      const createdUser = await User.findOne({ name })
-
-      if (createdUser) {
-        return res
-          .status(403)
-          .send({ msg: 'Такой пользователь уже существует' })
-      }
-
-      const user = new User({ name, password, id: uuid.v4() })
-
-      await user.save()
-
-      return res.status(200).json({ name: user.name, id: user.id })
+    if (!name || !password) {
+      return res.status(400).json({ error: 'Invalid data' })
     }
 
-    res.status(400).json({ msg: 'invalid data' })
+    const createdUser = await User.findOne({ name })
+
+    if (createdUser) {
+      return res.status(400).json({ error: 'Already exists' })
+    }
+
+    const user = new User({ name, password })
+
+    await user.save()
+
+    return res.status(200).json(pick(user, ['name', 'id']))
   } catch (err) {
     next(err)
   }

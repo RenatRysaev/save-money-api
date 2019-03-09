@@ -10,11 +10,10 @@
  *
  * @apiSuccessExample Success-Response:
  *  [{
- *      name: 'some name',
- *      id: 'some id',
- *      date: '12.2018',
- *      sum: '555',
- *      user_id: 'some user id',
+ *      name: 'Salary',
+ *      id: '456',
+ *      sum: '1000',
+ *      group_id: '634634',
  *  }]
  */
 
@@ -22,7 +21,7 @@ const list = ({ Income }) => async (req, res, next) => {
   try {
     const { id: user_id } = req.user
 
-    const income = await Income.find({ user_id })
+    const income = await Income.find({ user_id }, 'name sum id group_id')
 
     return res.status(200).json(income)
   } catch (err) {

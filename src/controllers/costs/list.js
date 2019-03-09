@@ -6,15 +6,16 @@
  *
  * @apiHeader {String} authorization token
  *
+ * @apiParam {String} [group_id] Group id
+ *
  * @apiSuccess {Object[]} costs  Cost categories
  *
  * @apiSuccessExample Success-Response:
  *  [{
- *      name: 'some name',
- *      id: 'some id',
- *      date: '12.2018',
- *      sum: '555',
- *      user_id: 'some user id',
+ *      name: 'Car',
+ *      id: '123',
+ *      sum: '1000',
+ *      group_id: 243,
  *  }]
  */
 
@@ -22,7 +23,7 @@ const list = ({ Cost }) => async (req, res, next) => {
   try {
     const { id: user_id } = req.user
 
-    const costs = await Cost.find({ user_id })
+    const costs = await Cost.find({ user_id }, 'id name sum group_id')
 
     return res.status(200).json(costs)
   } catch (err) {

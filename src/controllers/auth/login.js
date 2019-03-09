@@ -18,9 +18,9 @@ import { jwtOptions } from 'root/passport'
  *
  * @apiSuccessExample Success-Response:
  *    {
- *        token: 'some token',
- *        id: 'some id',
- *        name: 'some name'
+ *        token: 'as78u987asa56sa5s6',
+ *        id: '123',
+ *        name: 'Steve'
  *    },
  */
 
@@ -28,29 +28,29 @@ const login = ({ User }) => async (req, res, next) => {
   try {
     const { name, password } = req.body
 
-    if (name && password) {
-      const user = await User.findOne({ name })
-
-      if (!user) {
-        return res
-          .status(401)
-          .json({ msg: 'Такого пользователя не существует' })
-      }
-
-      const isMatchPassword = await user.comparePassword(password)
-
-      if (isMatchPassword) {
-        const payload = { id: user.id }
-        const token = jwt.sign(payload, jwtOptions.secretOrKey)
-
-        return res.status(200).json({
-          ...pick(user, ['name', 'id']),
-          token: `Bearer ${token}`,
-        })
-      }
-
-      res.status(401).json({ msg: 'Неправильные имя или пароль' })
+    if (!name || !password) {
+      return res.status(401).json({ error: 'Invalid data' })
     }
+
+    const user = await User.findOne({ name })
+
+    if (!user) {
+      return res.status(401).json({ error: 'Wrong name or password' })
+    }
+
+    const isMatchPassword = await user.comparePassword(password)
+
+    if (isMatchPassword) {
+      const payload = { id: user.id }
+      const token = jwt.sign(payload, jwtOptions.secretOrKey)
+
+      return res.status(200).json({
+        ...pick(user, ['name', 'id']),
+        token: `Bearer ${token}`,
+      })
+    }
+
+    return res.status(401).json({ error: 'Wrong name or password' })
   } catch (err) {
     next(err)
   }

@@ -1,5 +1,7 @@
 import '@babel/polyfill'
+import http from 'http'
 import express from 'express'
+import socketIO from 'socket.io'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 
@@ -19,6 +21,9 @@ app.use(passport.initialize())
 app.use('/api/v1', api())
 app.use(handleErrorsMiddleware)
 
+const server = http.Server(app)
+const io = socketIO(server)
+
 mongo
   .connect()
   .then(() => console.log('Connected Successfully to MongoDB'))
@@ -26,9 +31,13 @@ mongo
     console.log(`An error occurred while connecting to the MongoDB: ${error}`),
   )
 
+io.on('connection', socket => {
+  console.log('socket', socket)
+})
+
 const port = process.env.PORT || 8080
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(
     `Server started,
     ---------------------

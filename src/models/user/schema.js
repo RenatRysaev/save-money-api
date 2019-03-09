@@ -1,10 +1,10 @@
 import { Schema } from 'mongoose'
 
 const UserSchema = new Schema({
-  id: {
+  groupId: {
     type: String,
-    required: true,
-    unique: true,
+    required: false,
+    unique: false,
   },
   name: {
     type: String,
