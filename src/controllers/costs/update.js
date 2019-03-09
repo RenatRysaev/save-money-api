@@ -1,4 +1,5 @@
 import pick from 'lodash/pick'
+import asyncHandler from 'express-async-handler'
 
 /**
  * @api {post} /costs/update/:id Update cost
@@ -26,8 +27,8 @@ import pick from 'lodash/pick'
  *  }
  */
 
-const update = ({ Cost }) => async (req, res, next) => {
-  try {
+const update = ({ Cost }) =>
+  asyncHandler(async (req, res) => {
     const { id: costId } = req.params
     const { name, sum } = req.body
     const { id: user_id } = req.user
@@ -54,9 +55,6 @@ const update = ({ Cost }) => async (req, res, next) => {
     return res
       .status(200)
       .json(pick(updatedCost, ['id', 'name', 'sum', 'group_id']))
-  } catch (err) {
-    next(err)
-  }
-}
+  })
 
 export default update

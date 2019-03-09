@@ -1,4 +1,5 @@
 import pick from 'lodash/pick'
+import asyncHandler from 'express-async-handler'
 
 /**
  * @api {post} /costs/remove/:id Remove cost
@@ -18,8 +19,8 @@ import pick from 'lodash/pick'
  *  }
  */
 
-const remove = ({ Cost }) => async (req, res, next) => {
-  try {
+const remove = ({ Cost }) =>
+  asyncHandler(async (req, res) => {
     const { id: costId } = req.params
     const { id: user_id } = req.user
 
@@ -40,9 +41,6 @@ const remove = ({ Cost }) => async (req, res, next) => {
     const deletedCost = await Cost.findByIdAndRemove(costId)
 
     return res.status(200).json(pick(deletedCost, ['id']))
-  } catch (err) {
-    next(err)
-  }
-}
+  })
 
 export default remove

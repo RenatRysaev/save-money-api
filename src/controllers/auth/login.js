@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import pick from 'lodash/pick'
+import asyncHandler from 'express-async-handler'
 
 import { jwtOptions } from 'root/passport'
 
@@ -24,8 +25,8 @@ import { jwtOptions } from 'root/passport'
  *    },
  */
 
-const login = ({ User }) => async (req, res, next) => {
-  try {
+const login = ({ User }) =>
+  asyncHandler(async (req, res) => {
     const { name, password } = req.body
 
     if (!name || !password) {
@@ -51,9 +52,6 @@ const login = ({ User }) => async (req, res, next) => {
     }
 
     return res.status(401).json({ error: 'Wrong name or password' })
-  } catch (err) {
-    next(err)
-  }
-}
+  })
 
 export default login

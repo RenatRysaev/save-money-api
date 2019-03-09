@@ -1,5 +1,6 @@
 import { jwtOptions } from 'root/passport'
 import pick from 'lodash/pick'
+import asyncHandler from 'express-async-handler'
 
 /**
  * @api {post} /reg User registration
@@ -20,8 +21,8 @@ import pick from 'lodash/pick'
  *  }
  */
 
-const reg = ({ User }) => async (req, res, next) => {
-  try {
+const reg = ({ User }) =>
+  asyncHandler(async (req, res) => {
     const { name, password } = req.body
 
     if (!name || !password) {
@@ -39,9 +40,6 @@ const reg = ({ User }) => async (req, res, next) => {
     await user.save()
 
     return res.status(200).json(pick(user, ['name', 'id']))
-  } catch (err) {
-    next(err)
-  }
-}
+  })
 
 export default reg

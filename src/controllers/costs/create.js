@@ -1,4 +1,5 @@
 import pick from 'lodash/pick'
+import asyncHandler from 'express-async-handler'
 
 /**
  * @api {post} /costs/create Create cost
@@ -29,8 +30,8 @@ import pick from 'lodash/pick'
  *  }
  */
 
-const create = ({ Cost }) => async (req, res, next) => {
-  try {
+const create = ({ Cost }) =>
+  asyncHandler(async (req, res) => {
     const { name, sum, description, group_id } = req.body
     const { id: user_id } = req.user
 
@@ -45,9 +46,6 @@ const create = ({ Cost }) => async (req, res, next) => {
     return res
       .status(201)
       .json(pick(cost, ['name', 'sum', 'id', 'description', 'group_id']))
-  } catch (err) {
-    next(err)
-  }
-}
+  })
 
 export default create

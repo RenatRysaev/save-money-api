@@ -1,4 +1,5 @@
 import pick from 'lodash/pick'
+import asyncHandler from 'express-async-handler'
 
 /**
  * @api {post} /group/add_user Add user into group
@@ -22,8 +23,8 @@ import pick from 'lodash/pick'
  *  }
  */
 
-const addUser = ({ Group }) => async (req, res, next) => {
-  try {
+const addUser = ({ Group }) =>
+  asyncHandler(async (req, res) => {
     const { group_id, users_id } = req.body
     const { id: user_id } = req.user
 
@@ -55,9 +56,6 @@ const addUser = ({ Group }) => async (req, res, next) => {
     )
 
     return res.status(200).json(pick(updatedGroup, ['id', 'name', 'users_id']))
-  } catch (err) {
-    next(err)
-  }
-}
+  })
 
 export default addUser

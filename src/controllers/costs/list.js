@@ -1,3 +1,5 @@
+import asyncHandler from 'express-async-handler'
+
 /**
  * @api {get} /costs Get cost list
  * @apiName Get cost list
@@ -19,16 +21,13 @@
  *  }]
  */
 
-const list = ({ Cost }) => async (req, res, next) => {
-  try {
+const list = ({ Cost }) =>
+  asyncHandler(async (req, res) => {
     const { id: user_id } = req.user
 
     const costs = await Cost.find({ user_id }, 'id name sum group_id')
 
     return res.status(200).json(costs)
-  } catch (err) {
-    next(err)
-  }
-}
+  })
 
 export default list

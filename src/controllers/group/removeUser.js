@@ -1,4 +1,5 @@
 import pick from 'lodash/pick'
+import asyncHandler from 'express-async-handler'
 
 /**
  * @api {post} /group/remove_user/:id Remove user from group
@@ -19,8 +20,8 @@ import pick from 'lodash/pick'
  *  }
  */
 
-const removeUser = ({ Group }) => async (req, res, next) => {
-  try {
+const removeUser = ({ Group }) =>
+  asyncHandler(async (req, res) => {
     const { id: current_user_id } = req.user
     const { id: user_id } = req.params
     const { group_id } = req.body
@@ -53,9 +54,6 @@ const removeUser = ({ Group }) => async (req, res, next) => {
     )
 
     return res.status(200).json(pick(updatedGroup, ['id', 'name', 'users_id']))
-  } catch (err) {
-    next(err)
-  }
-}
+  })
 
 export default removeUser

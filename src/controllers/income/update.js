@@ -1,4 +1,5 @@
 import pick from 'lodash/pick'
+import asyncHandler from 'express-async-handler'
 
 /**
  * @api {post} /income/update/:id Update income
@@ -19,15 +20,15 @@ import pick from 'lodash/pick'
  *
  * @apiSuccessExample Success-Response:
  *  {
- *      name: 'Salary',
- *      id: '56465',
- *      sum: '1000',
- *      group_id: '1312',
+ *    name: 'Salary',
+ *    id: '56465',
+ *    sum: '1000',
+ *    group_id: '1312',
  *  }
  */
 
-const update = ({ Income }) => async (req, res, next) => {
-  try {
+const update = ({ Income }) =>
+  asyncHandler(async (req, res) => {
     const { id: incomeId } = req.params
     const { name, sum } = req.body
     const { id: user_id } = req.user
@@ -52,9 +53,6 @@ const update = ({ Income }) => async (req, res, next) => {
     )
 
     return res.status(200).json(pick(updatedIncome, ['id', 'name', 'sum']))
-  } catch (err) {
-    next(err)
-  }
-}
+  })
 
 export default update

@@ -1,4 +1,5 @@
 import pick from 'lodash/pick'
+import asyncHandler from 'express-async-handler'
 
 /**
  * @api {post} /group/create Create group
@@ -20,8 +21,8 @@ import pick from 'lodash/pick'
  *  }
  */
 
-const create = ({ Group }) => async (req, res, next) => {
-  try {
+const create = ({ Group }) =>
+  asyncHandler(async (req, res) => {
     const { name } = req.body
     const { id: creator_user_id } = req.user
 
@@ -34,9 +35,6 @@ const create = ({ Group }) => async (req, res, next) => {
     await group.save()
 
     return res.status(201).json(pick(group, ['id', 'name']))
-  } catch (err) {
-    next(err)
-  }
-}
+  })
 
 export default create

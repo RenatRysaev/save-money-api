@@ -1,5 +1,6 @@
 import { jwtOptions } from 'root/passport'
 import pick from 'lodash/pick'
+import asyncHandler from 'express-async-handler'
 
 /**
  * @api {post} /check-login User check login
@@ -16,16 +17,13 @@ import pick from 'lodash/pick'
  *  },
  */
 
-const checkLogin = ({ User }) => async (req, res, next) => {
-  try {
+const checkLogin = ({ User }) =>
+  asyncHandler(async (req, res) => {
     const { id: user_id } = req.user
 
     const user = await User.findById(user_id)
 
     res.status(200).json(pick(user, ['id', 'name']))
-  } catch (err) {
-    next(err)
-  }
-}
+  })
 
 export default checkLogin

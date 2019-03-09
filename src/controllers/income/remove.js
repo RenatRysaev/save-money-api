@@ -1,4 +1,5 @@
 import pick from 'lodash/pick'
+import asyncHandler from 'express-async-handler'
 
 /**
  * @api {post} /income/remove/:id Remove income
@@ -18,8 +19,8 @@ import pick from 'lodash/pick'
  *  }
  */
 
-const remove = ({ Income }) => async (req, res, next) => {
-  try {
+const remove = ({ Income }) =>
+  asyncHandler(async (req, res) => {
     const { id: incomeId } = req.params
     const { id: user_id } = req.user
 
@@ -40,9 +41,6 @@ const remove = ({ Income }) => async (req, res, next) => {
     const deletedIncome = await Income.findByIdAndRemove(incomeId)
 
     return res.status(200).json(pick(deletedIncome, ['id']))
-  } catch (err) {
-    next(err)
-  }
-}
+  })
 
 export default remove
