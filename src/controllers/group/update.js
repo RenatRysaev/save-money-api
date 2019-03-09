@@ -1,5 +1,4 @@
 import pick from 'lodash/pick'
-import isEqual from 'lodash/isEqual'
 
 /**
  * @api {post} /group/update/:id Update group

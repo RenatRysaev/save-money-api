@@ -10,7 +10,7 @@ import pick from 'lodash/pick'
  *
  * @apiParam {String} name Income name
  * @apiParam {String} sum Income sum
- * @apiParam {String} group_id Group id
+ * @apiParam {String} [group_id] Group id
  *
  * @apiSuccess {String} name - Income name
  * @apiSuccess {String} id - Income id
@@ -41,7 +41,6 @@ const create = ({ Income }) => async (req, res, next) => {
 
     return res.status(201).json(pick(income, ['name', 'id', 'sum', 'group_id']))
   } catch (err) {
-    console.log(err)
     next(err)
   }
 }

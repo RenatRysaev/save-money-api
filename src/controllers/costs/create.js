@@ -46,7 +46,6 @@ const create = ({ Cost }) => async (req, res, next) => {
       .status(201)
       .json(pick(cost, ['name', 'sum', 'id', 'description', 'group_id']))
   } catch (err) {
-    console.log(err)
     next(err)
   }
 }

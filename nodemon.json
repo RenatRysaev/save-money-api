@@ -1,8 +1,10 @@
 {
   "watch": "src/**/*",
+  "ignore": ["node_modules/**/node_modules"],
   "verbose": true,
   "env": {
-    "NODE_ENV": "development"
+    "NODE_ENV": "development",
+    "DEBUG": "INFO DEBUG ERROR"
   },
   "ext": "js, json"
 }

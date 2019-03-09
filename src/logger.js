@@ -1,14 +1,9 @@
-import { transports, createLogger, format } from 'winston'
-import { resolve } from 'path'
+import debug from 'debug'
 
-const logger = createLogger({
-  level: 'info',
-  format: format.json(),
-  defaultMeta: { service: 'user-service' },
-  transports: [
-    new transports.Console(),
-    new transports.File({ filename: resolve('error.log'), level: 'error' }),
-  ],
-})
+const logger = {
+  info: debug('INFO'),
+  debug: debug('DEBUG'),
+  error: debug('ERROR'),
+}
 
 export default logger

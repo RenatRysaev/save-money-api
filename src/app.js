@@ -4,16 +4,19 @@ import express from 'express'
 import socketIO from 'socket.io'
 import cors from 'cors'
 import bodyParser from 'body-parser'
+import morgan from 'morgan'
 
-import config from 'root/config'
+import logger from 'root/logger'
+import mongoConfig from 'config/mongo'
 import passport from 'root/passport'
 import MongoManager from 'mongo/MongoManager'
 import api from 'api'
 import handleErrorsMiddleware from 'middleware/handleErrors'
 
 const app = express()
-const mongo = new MongoManager(config)
+const mongo = new MongoManager(mongoConfig)
 
+app.use(morgan(':method :url :status :response-time ms - :res[content-length]'))
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
@@ -26,26 +29,26 @@ const io = socketIO(server)
 
 mongo
   .connect()
-  .then(() => console.log('Connected Successfully to MongoDB'))
+  .then(() => logger.info('Connected Successfully to MongoDB'))
   .catch(error =>
-    console.log(`An error occurred while connecting to the MongoDB: ${error}`),
+    logger.info(`An error occurred while connecting to the MongoDB: ${error}`),
   )
 
 io.on('connection', socket => {
-  console.log('socket', socket)
+  logger.info('socket', socket)
 })
 
 const port = process.env.PORT || 8080
 
 server.listen(port, () => {
-  console.log(
+  logger.info(
     `Server started,
     ---------------------
     PORT:${port},
     ---------------------
     URL: http://localhost:${port},
     ---------------------
-    MongoDB: ${config.MONGODB_URI}
+    MongoDB: ${mongoConfig.MONGODB_URI}
     ---------------------`,
   )
 })
