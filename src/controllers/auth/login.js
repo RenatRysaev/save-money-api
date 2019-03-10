@@ -46,7 +46,7 @@ const login = asyncHandler(async (req, res) => {
 
   if (isMatchPassword) {
     const payload = { id: user.id }
-    const token = jwt.sign(payload, jwtOptions.secretOrKey)
+    const token = jwt.sign(payload, jwtOptions.secretOrKey, { expiresIn: '5h' })
 
     return res.status(200).json({
       ...pick(user, ['name', 'id']),
