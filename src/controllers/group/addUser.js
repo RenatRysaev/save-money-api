@@ -1,5 +1,6 @@
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
+import { body } from 'express-validator/check'
 
 import Group from 'models/group'
 
@@ -25,13 +26,14 @@ import Group from 'models/group'
  *  }
  */
 
+export const validationForAddUser = [
+  body('group_id').exists({ checkFalsy: true, checkNull: true }),
+  body('users_id').exists({ checkFalsy: true, checkNull: true }),
+]
+
 const addUser = asyncHandler(async (req, res) => {
   const { group_id, users_id } = req.body
   const { id: user_id } = req.user
-
-  if (!group_id || !users_id) {
-    return res.status(400).json({ error: 'invalid data' })
-  }
 
   const group = await Group.findById(group_id)
 

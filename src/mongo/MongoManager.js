@@ -14,7 +14,7 @@ class MongoManager {
       this.getMongoUrl(),
       {
         useNewUrlParser: true,
-        // useCreateIndex: true,
+        useCreateIndex: true,
       },
     )
   }

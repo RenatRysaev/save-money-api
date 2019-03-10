@@ -1,5 +1,6 @@
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
+import { param } from 'express-validator/check'
 
 import Group from 'models/group'
 
@@ -26,14 +27,14 @@ import Group from 'models/group'
  *  }
  */
 
+export const validationForUpdate = [
+  param('group_id').exists({ checkNull: true, checkFalsy: true }),
+]
+
 const update = asyncHandler(async (req, res) => {
   const { id: group_id } = req.params
   const { users_id, name } = req.body
   const { id: user_id } = req.user
-
-  if (!group_id || !name) {
-    return res.status(400).json({ error: 'invalid data' })
-  }
 
   const group = await Group.findById(group_id)
   const isCreator = group.creator_user_id === user_id

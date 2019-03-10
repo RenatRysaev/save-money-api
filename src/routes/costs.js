@@ -1,31 +1,39 @@
 import { Router } from 'express'
-import passport from 'passport'
+import { withProtect, withValidationErrorsHandler } from 'utils/route'
 
 import controller from 'controllers/costs'
 
 const router = new Router()
 
-router.get(
-  '/v1/costs',
-  passport.authenticate('jwt', { session: false }),
-  controller.list,
-)
+router.get('/v1/costs', withProtect(), controller.list)
 
 router.post(
   '/v1/costs/create',
-  passport.authenticate('jwt', { session: false }),
+  [
+    ...withProtect(),
+    ...controller.validationForCreate,
+    ...withValidationErrorsHandler(),
+  ],
   controller.create,
 )
 
 router.patch(
   '/v1/costs/:id',
-  passport.authenticate('jwt', { session: false }),
+  [
+    ...withProtect(),
+    ...controller.validationForUpdate,
+    ...withValidationErrorsHandler(),
+  ],
   controller.update,
 )
 
 router.delete(
   '/v1/costs/:id',
-  passport.authenticate('jwt', { session: false }),
+  [
+    ...withProtect(),
+    ...controller.validationForRemove,
+    ...withValidationErrorsHandler(),
+  ],
   controller.remove,
 )
 

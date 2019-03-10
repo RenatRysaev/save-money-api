@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
+import { body } from 'express-validator/check'
 
 import User from 'models/user'
 
@@ -20,19 +21,20 @@ import { jwtOptions } from 'root/passport'
  * @apiSuccess {String} name - User name
  *
  * @apiSuccessExample Success-Response:
- *    {
- *        token: 'as78u987asa56sa5s6',
- *        id: '123',
- *        name: 'Steve'
- *    },
+ *  {
+ *    token: 'as78u987asa56sa5s6',
+ *    id: '123',
+ *    name: 'Steve'
+ *  },
  */
+
+export const validationForLogin = [
+  body('name').exists({ checkFalsy: true }),
+  body('password').exists({ checkFalsy: true }),
+]
 
 const login = asyncHandler(async (req, res) => {
   const { name, password } = req.body
-
-  if (!name || !password) {
-    return res.status(401).json({ error: 'Invalid data' })
-  }
 
   const user = await User.findOne({ name })
 

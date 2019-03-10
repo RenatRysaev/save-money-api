@@ -1,5 +1,6 @@
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
+import { body } from 'express-validator/check'
 
 import Cost from 'models/cost'
 
@@ -24,21 +25,22 @@ import Cost from 'models/cost'
  *
  * @apiSuccessExample Success-Response:
  *  {
- *      name: 'Food',
- *      id: '123',
- *      sum: '1000',
- *      description: 'Food costs',
- *      group_id: 268,
+ *    name: 'Food',
+ *    id: '123',
+ *    sum: '1000',
+ *    description: 'Food costs',
+ *    group_id: 268,
  *  }
  */
+
+export const validationForCreate = [
+  body('name').exists({ checkFalsy: true }),
+  body('sum').exists({ checkFalsy: true }),
+]
 
 const create = asyncHandler(async (req, res) => {
   const { name, sum, description, group_id } = req.body
   const { id: user_id } = req.user
-
-  if (!name || !sum) {
-    return res.status(400).json({ error: 'invalid req data' })
-  }
 
   const cost = new Cost({ name, sum, user_id, description, group_id })
 

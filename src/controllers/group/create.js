@@ -1,5 +1,6 @@
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
+import { body } from 'express-validator/check'
 
 import Group from 'models/group'
 
@@ -18,18 +19,18 @@ import Group from 'models/group'
  *
  * @apiSuccessExample Success-Response:
  *  {
- *      name: 'Super group',
- *      id: '555',
+ *    name: 'Super group',
+ *    id: '555',
  *  }
  */
+
+export const validationForCreate = [
+  body('name').exists({ checkNull: true, checkFalsy: true }),
+]
 
 const create = asyncHandler(async (req, res) => {
   const { name } = req.body
   const { id: creator_user_id } = req.user
-
-  if (!name) {
-    return res.status(400).json({ error: 'invalid data' })
-  }
 
   const group = new Group({ name, creator_user_id })
 

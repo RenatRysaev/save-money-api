@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import passport from 'passport'
+import { withProtect, withValidationErrorsHandler } from 'utils/route'
 
 import controller from 'controllers/group'
 
@@ -7,31 +7,51 @@ const router = new Router()
 
 router.post(
   '/v1/group/create',
-  passport.authenticate('jwt', { session: false }),
+  [
+    ...withProtect(),
+    ...controller.validationForCreate,
+    ...withValidationErrorsHandler(),
+  ],
   controller.create,
 )
 
 router.patch(
   '/v1/group/:id',
-  passport.authenticate('jwt', { session: false }),
+  [
+    ...withProtect(),
+    ...controller.validationForUpdate,
+    ...withValidationErrorsHandler(),
+  ],
   controller.update,
 )
 
 router.delete(
   '/v1/group/:id',
-  passport.authenticate('jwt', { session: false }),
+  [
+    ...withProtect(),
+    ...controller.validationForRemove,
+    ...withValidationErrorsHandler(),
+  ],
   controller.remove,
 )
 
 router.post(
   '/v1/group/add_user',
-  passport.authenticate('jwt', { session: false }),
+  [
+    ...withProtect(),
+    ...controller.validationForAddUser,
+    ...withValidationErrorsHandler(),
+  ],
   controller.addUser,
 )
 
 router.delete(
   '/v1/group/user/:id',
-  passport.authenticate('jwt', { session: false }),
+  [
+    ...withProtect(),
+    ...controller.validationForRemoveUser,
+    ...withValidationErrorsHandler(),
+  ],
   controller.removeUser,
 )
 

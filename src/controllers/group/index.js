@@ -1,8 +1,8 @@
-import create from './create'
-import remove from './remove'
-import update from './update'
-import addUser from './addUser'
-import removeUser from './removeUser'
+import create, { validationForCreate } from './create'
+import remove, { validationForRemove } from './remove'
+import update, { validationForUpdate } from './update'
+import addUser, { validationForAddUser } from './addUser'
+import removeUser, { validationForRemoveUser } from './removeUser'
 
 const groupCotroller = {
   create,
@@ -10,6 +10,11 @@ const groupCotroller = {
   update,
   addUser,
   removeUser,
+  validationForAddUser,
+  validationForRemoveUser,
+  validationForCreate,
+  validationForUpdate,
+  validationForRemove,
 }
 
 export default groupCotroller

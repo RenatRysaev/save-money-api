@@ -1,5 +1,6 @@
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
+import { param } from 'express-validator/check'
 
 import Income from 'models/income'
 
@@ -29,14 +30,14 @@ import Income from 'models/income'
  *  }
  */
 
+export const validationForUpdate = [
+  param('id').exists({ checkFalsy: true, checkNull: true }),
+]
+
 const update = asyncHandler(async (req, res) => {
   const { id: incomeId } = req.params
   const { name, sum } = req.body
   const { id: user_id } = req.user
-
-  if (!incomeId) {
-    return res.status(400).json({ error: 'Invalid req data' })
-  }
 
   const income = await Income.findById(incomeId)
 

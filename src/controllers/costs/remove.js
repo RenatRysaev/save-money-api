@@ -1,5 +1,6 @@
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
+import { param } from 'express-validator/check'
 
 import Cost from 'models/cost'
 
@@ -21,13 +22,13 @@ import Cost from 'models/cost'
  *  }
  */
 
+export const validationForRemove = [
+  param('id').exists({ checkFalsy: true, checkNull: true }),
+]
+
 const remove = asyncHandler(async (req, res) => {
   const { id: costId } = req.params
   const { id: user_id } = req.user
-
-  if (!costId) {
-    return res.status(400).json({ error: 'invalid req data' })
-  }
 
   const cost = await Cost.findById(costId)
 

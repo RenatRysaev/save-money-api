@@ -1,13 +1,16 @@
-import create from './create'
+import create, { validationForCreate } from './create'
 import list from './list'
-import remove from './remove'
-import update from './update'
+import remove, { validationForRemove } from './remove'
+import update, { validationForUpdate } from './update'
 
 const incomeController = {
   create,
   list,
   remove,
   update,
+  validationForCreate,
+  validationForRemove,
+  validationForUpdate,
 }
 
 export default incomeController

@@ -1,5 +1,6 @@
 import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
+import { param } from 'express-validator/check'
 
 import Group from 'models/group'
 
@@ -21,13 +22,13 @@ import Group from 'models/group'
  *  }
  */
 
-const remove = asyncHandler(async (req, res, next) => {
+export const validationForRemove = [
+  param('name').exists({ checkNull: true, checkFalsy: true }),
+]
+
+const remove = asyncHandler(async (req, res) => {
   const { id: groupId } = req.params
   const { id: creatorUserId } = req.user
-
-  if (!groupId) {
-    return res.status(400).json({ error: 'Invalid data' })
-  }
 
   const group = await Group.findById(groupId)
   const isCreator = group.creator_user_id === creatorUserId
