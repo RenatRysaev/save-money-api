@@ -23,3 +23,5 @@
 5. [Lodash](https://lodash.com/docs/4.17.11) - utils.
 6. [Apidoc](http://apidocjs.com/) - documentation.
 7. [Debug](https://github.com/visionmedia/debug#readme) - logger.
+8. [Morgan](https://github.com/expressjs/morgan) - http logger.
+9. [Express-validator](https://express-validator.github.io/docs/) - validator.
