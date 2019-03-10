@@ -11,6 +11,7 @@ import mongoConfig from 'config/mongo'
 import passport from 'root/passport'
 import MongoManager from 'mongo/MongoManager'
 import appRouter from 'routes'
+import notFoundMiddleware from 'middleware/notFound'
 import handleErrorsMiddleware from 'middleware/handleErrors'
 
 const app = express()
@@ -23,6 +24,7 @@ app.use(bodyParser.json())
 app.use(passport.initialize())
 
 app.use('/api', appRouter())
+app.use(notFoundMiddleware)
 app.use(handleErrorsMiddleware)
 
 const server = http.Server(app)
