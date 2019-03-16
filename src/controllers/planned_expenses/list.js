@@ -21,6 +21,8 @@ import PlannedExpense from 'models/planned_expense'
  *      sum: 1000,
  *      currency: 'rub',
  *      group_id: '243',
+ *      category_id: 'as2342df',
+ *      currency: 'eur',
  *  }]
  */
 
@@ -29,7 +31,7 @@ const list = asyncHandler(async (req, res) => {
 
   const plannedExpenses = await PlannedExpense.find(
     { user_id },
-    'id name sum currency group_id',
+    'id name sum currency group_id category_id',
   )
 
   return res.status(200).json(plannedExpenses)

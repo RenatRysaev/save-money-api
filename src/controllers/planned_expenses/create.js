@@ -15,6 +15,7 @@ import PlannedExpense from 'models/planned_expense'
  * @apiParam {String} name Planned expense name
  * @apiParam {Number} sum Planned expense sum
  * @apiParam {String} currency Planned expense currency
+ * @apiParam {String} category_id Planned expense category id
  * @apiParam {String} [description] Planned expense description
  * @apiParam {String} [group_id] Group id
  *
@@ -22,6 +23,7 @@ import PlannedExpense from 'models/planned_expense'
  * @apiSuccess {String} name Planned expense name
  * @apiSuccess {Number} sum Planned expense sum
  * @apiSuccess {String} currency Planned expense currency
+ * @apiSuccess {String} category_id Planned expense category id
  * @apiSuccess {String} [description] Planned expense description
  * @apiSuccess {String} [group_id] Group id
  *
@@ -29,6 +31,7 @@ import PlannedExpense from 'models/planned_expense'
  *  {
  *    name: 'Food',
  *    id: '123',
+ *    category_id: 'as2342df',
  *    sum: 1000,
  *    currency: 'usd',
  *    description: 'Food lorem ipsum',
@@ -40,10 +43,11 @@ export const validationForCreate = [
   body('name').exists({ checkFalsy: true }),
   body('sum').exists({ checkFalsy: true }),
   body('currency').exists({ checkFalsy: true }),
+  body('category_id').exists({ checkFalsy: true }),
 ]
 
 const create = asyncHandler(async (req, res) => {
-  const { name, sum, description, group_id, currency } = req.body
+  const { name, sum, description, group_id, currency, category_id } = req.body
   const { id: user_id } = req.user
 
   const plannedExpense = new PlannedExpense({
@@ -53,6 +57,7 @@ const create = asyncHandler(async (req, res) => {
     currency,
     description,
     group_id,
+    category_id,
   })
 
   await plannedExpense.save()
@@ -67,6 +72,7 @@ const create = asyncHandler(async (req, res) => {
         'currency',
         'description',
         'group_id',
+        'category_id',
       ]),
     )
 })

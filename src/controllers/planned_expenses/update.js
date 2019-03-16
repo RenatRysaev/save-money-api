@@ -16,9 +16,11 @@ import PlannedExpense from 'models/planned_expense'
  * @apiParam {Number} [sum] Planned expense sum
  * @apiParam {String} [name] Planned expense name
  * @apiParam {String} [currency] Planned expense currency
+ * @apiParam {String} [category_id] Planned expense category id
  *
  * @apiSuccess {String} name Planned expense name
  * @apiSuccess {String} id Planned expense id
+ * @apiSuccess {String} category_id Planned expense category id
  * @apiSuccess {Number} sum Planned expense sum
  * @apiSuccess {String} currency Planned expense currency
  * @apiSuccess {String} [group_id] Group id
@@ -30,6 +32,7 @@ import PlannedExpense from 'models/planned_expense'
  *    sum: 1000,
  *    currency: 'eur',
  *    group_id: '123',
+ *    category_id: 'as2342df',
  *  }
  */
 
@@ -39,7 +42,7 @@ export const validationForUpdate = [
 
 const update = asyncHandler(async (req, res) => {
   const { id: plannedExpenseId } = req.params
-  const { name, sum, currency } = req.body
+  const { name, sum, currency, category_id } = req.body
   const { id: user_id } = req.user
 
   const plannedExpense = await PlannedExpense.findById(plannedExpenseId)
@@ -54,6 +57,7 @@ const update = asyncHandler(async (req, res) => {
       name: name || plannedExpense.name,
       sum: sum || plannedExpense.sum,
       currency: currency || plannedExpense.currency,
+      category_id: category_id || plannedExpense.category_id,
     },
     { new: true },
   )
@@ -67,6 +71,7 @@ const update = asyncHandler(async (req, res) => {
         'sum',
         'currency',
         'group_id',
+        'category_id',
       ]),
     )
 })

@@ -17,7 +17,8 @@ import FactExpense from 'models/fact_expense'
  *      name: 'Car',
  *      id: '123',
  *      sum: 1000,
- *      currency: 'rub',
+ *      category_id: 'as2342df',
+ *      currency: 'eur',
  *  }]
  */
 
@@ -26,7 +27,7 @@ const list = asyncHandler(async (req, res) => {
 
   const factExpenses = await FactExpense.find(
     { user_id },
-    'id name sum currency',
+    'id name sum category_id currency',
   )
 
   return res.status(200).json(factExpenses)

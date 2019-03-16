@@ -6,6 +6,11 @@ const PlannedExpenseSchema = new Schema({
     required: true,
     unique: false,
   },
+  categoryId: {
+    type: String,
+    required: true,
+    unique: false,
+  },
   group_id: {
     type: String,
     required: false,

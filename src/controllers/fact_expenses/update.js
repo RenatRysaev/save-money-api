@@ -13,12 +13,13 @@ import FactExpense from 'models/fact_expense'
  * @apiHeader {String} authorization token
  *
  * @apiParam {String} id Fact expense id
+ * @apiParam {String} [category_id] Fact expense category id
  * @apiParam {Number} [sum] Fact expense sum
  * @apiParam {String} [name] Fact expense name
- * @apiParam {String} [currency] Fact expense currency
  *
  * @apiSuccess {String} name Fact expense name
  * @apiSuccess {String} id Fact expense id
+ * @apiSuccess {String} category_id Fact expense category id
  * @apiSuccess {Number} sum Fact expense sum
  * @apiSuccess {String} currency Fact expense currency
  *
@@ -27,6 +28,7 @@ import FactExpense from 'models/fact_expense'
  *    name: 'Food',
  *    id: '234',
  *    sum: 1000,
+ *    category_id: 'as2342df',
  *    currency: 'eur',
  *  }
  */
@@ -37,7 +39,7 @@ export const validationForUpdate = [
 
 const update = asyncHandler(async (req, res) => {
   const { id: factExpenseId } = req.params
-  const { name, sum, currency } = req.body
+  const { name, sum, category_id } = req.body
   const { id: user_id } = req.user
 
   const factExpense = await FactExpense.findById(factExpenseId)
@@ -51,14 +53,22 @@ const update = asyncHandler(async (req, res) => {
     {
       name: name || factExpense.name,
       sum: sum || factExpense.sum,
-      currency: currency || factExpense.currency,
+      category_id: category_id || factExpense.category_id,
     },
     { new: true },
   )
 
   return res
     .status(200)
-    .json(pick(updatedFactExpense, ['id', 'name', 'sum', 'currency']))
+    .json(
+      pick(updatedFactExpense, [
+        'id',
+        'name',
+        'sum',
+        'category_id',
+        'currency',
+      ]),
+    )
 })
 
 export default update

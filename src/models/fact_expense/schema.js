@@ -6,6 +6,11 @@ const FactExpenseSchema = new Schema({
     required: true,
     unique: false,
   },
+  categoryId: {
+    type: String,
+    required: true,
+    unique: false,
+  },
   name: {
     type: String,
     required: true,
