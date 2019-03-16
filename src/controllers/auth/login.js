@@ -16,9 +16,9 @@ import { jwtOptions } from 'root/passport'
  * @apiParam {String} name User name
  * @apiParam {String} password User password
  *
- * @apiSuccess {String} token - Token
- * @apiSuccess {String} id - User id
- * @apiSuccess {String} name - User name
+ * @apiSuccess {String} token Token
+ * @apiSuccess {String} id User id
+ * @apiSuccess {String} name User name
  *
  * @apiSuccessExample Success-Response:
  *  {

@@ -1,10 +1,15 @@
 import { Schema } from 'mongoose'
 
-const CostRecordSchema = new Schema({
+const PlannedExpenseSchema = new Schema({
   user_id: {
     type: String,
     required: true,
     unique: false,
+  },
+  group_id: {
+    type: String,
+    required: false,
+    false: false,
   },
   name: {
     type: String,
@@ -16,16 +21,11 @@ const CostRecordSchema = new Schema({
     required: true,
     unique: false,
   },
-  currency: {
+  description: {
     type: String,
-    required: true,
-    unique: false,
-  },
-  date: {
-    type: String,
-    required: true,
+    required: false,
     unique: false,
   },
 })
 
-export default CostRecordSchema
+export default PlannedExpenseSchema

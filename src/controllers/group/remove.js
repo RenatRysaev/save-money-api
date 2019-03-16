@@ -14,7 +14,7 @@ import Group from 'models/group'
  *
  * @apiParam {String} id Group id
  *
- * @apiSuccess {String} id - Group id
+ * @apiSuccess {String} id Group id
  *
  * @apiSuccessExample Success-Response:
  *  {

@@ -2,19 +2,19 @@ import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
 import { param } from 'express-validator/check'
 
-import CostRecord from 'models/cost_record'
+import FactExpense from 'models/fact_expense'
 
 /**
- * @api {delete} /cost_records/:id Remove cost record
- * @apiName Remove cost record
- * @apiGroup Cost records
+ * @api {delete} /fact_expenses/:id Remove fact expense
+ * @apiName Remove fact expense
+ * @apiGroup Fact expenses
  * @apiVersion 1.0.0
  *
  * @apiHeader {String} authorization token
  *
- * @apiParam {String} id Cost record id
+ * @apiParam {String} id Fact expenses id
  *
- * @apiSuccess {String} id - Cost record id
+ * @apiSuccess {String} id Fact expenses id
  *
  * @apiSuccessExample Success-Response:
  *  {
@@ -27,22 +27,22 @@ export const validationForRemove = [
 ]
 
 const remove = asyncHandler(async (req, res) => {
-  const { id: costRecordId } = req.params
+  const { id: factExpenseId } = req.params
   const { id: user_id } = req.user
 
-  const costRecord = await CostRecord.findById(costRecordId)
+  const factExpense = await FactExpense.findById(factExpenseId)
 
-  if (!costRecord) {
+  if (!factExpense) {
     return res.status(400).json({ error: 'No such category' })
   }
 
-  if (costRecord.user_id !== user_id) {
+  if (factExpense.user_id !== user_id) {
     return res.status(403).json({ error: 'Forbidden' })
   }
 
-  const deletedCostRecord = await CostRecord.findByIdAndRemove(costRecordId)
+  const deletedFactExpense = await FactExpense.findByIdAndRemove(factExpenseId)
 
-  return res.status(200).json(pick(deletedCostRecord, ['id']))
+  return res.status(200).json(pick(deletedFactExpense, ['id']))
 })
 
 export default remove

@@ -15,8 +15,8 @@ import Group from 'models/group'
  * @apiParam {String} group_id Group id
  * @apiParam {String[]} users_id User id
  *
- * @apiSuccess {String} id - Group id
- * @apiSuccess {String[]} id - Group users
+ * @apiSuccess {String} id Group id
+ * @apiSuccess {String[]} id Group users
  *
  * @apiSuccessExample Success-Response:
  *  {

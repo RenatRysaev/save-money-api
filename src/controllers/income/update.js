@@ -16,10 +16,10 @@ import Income from 'models/income'
  * @apiParam {String} [sum] Income sum
  * @apiParam {String} [name] Income name
  *
- * @apiSuccess {String} name - Income name
- * @apiSuccess {String} id - Income id
- * @apiSuccess {String} sum - Income sum
- * @apiSuccess {String} [group_id] - Group id
+ * @apiSuccess {String} name Income name
+ * @apiSuccess {String} id Income id
+ * @apiSuccess {String} sum Income sum
+ * @apiSuccess {String} [group_id] Group id
  *
  * @apiSuccessExample Success-Response:
  *  {

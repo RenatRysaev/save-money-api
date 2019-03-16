@@ -2,26 +2,26 @@ import asyncHandler from 'express-async-handler'
 import { body } from 'express-validator/check'
 import pick from 'lodash/pick'
 
-import CostRecord from 'models/cost_record'
+import FactExpense from 'models/fact_expense'
 
 /**
- * @api {post} /cost_records/create Create cost record
- * @apiName Create cost record
- * @apiGroup Cost records
+ * @api {post} /fact_expenses/create Create fact expense
+ * @apiName Create fact expense
+ * @apiGroup Fact expenses
  * @apiVersion 1.0.0
  *
  * @apiHeader {String} authorization token
  *
- * @apiParam {String} name Cost record name
- * @apiParam {Number} sum Cost record sum
- * @apiParam {String} currency Cost record currency
- * @apiParam {String} date Cost record date
+ * @apiParam {String} name Fact expenses name
+ * @apiParam {Number} sum Fact expenses sum
+ * @apiParam {String} currency Fact expenses currency
+ * @apiParam {String} date Fact expenses date
  *
- * @apiSuccess {String} name Cost record name
- * @apiSuccess {Number} sum Cost record sum
- * @apiSuccess {String} id - Cost record id
- * @apiSuccess {String} currency - Cost record currency
- * @apiSuccess {String} date Cost record date
+ * @apiSuccess {String} name Fact expenses name
+ * @apiSuccess {Number} sum Fact expenses sum
+ * @apiSuccess {String} id Fact expenses id
+ * @apiSuccess {String} currency Fact expenses currency
+ * @apiSuccess {String} date Fact expenses date
  *
  * @apiSuccessExample Success-Response:
  *  {
@@ -45,13 +45,13 @@ const create = asyncHandler(async (req, res) => {
   const { name, sum, currency, date } = req.body
   const { id: user_id } = req.user
 
-  const costRecord = new CostRecord({ name, sum, currency, date, user_id })
+  const factExpense = new FactExpense({ name, sum, currency, date, user_id })
 
-  await costRecord.save()
+  await factExpense.save()
 
   return res
     .status(201)
-    .json(pick(costRecord, ['name', 'id', 'sum', 'currency', 'date']))
+    .json(pick(factExpense, ['name', 'id', 'sum', 'currency', 'date']))
 })
 
 export default create

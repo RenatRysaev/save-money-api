@@ -1,16 +1,16 @@
 import asyncHandler from 'express-async-handler'
 
-import CostRecord from 'models/cost_record'
+import FactExpense from 'models/fact_expense'
 
 /**
- * @api {get} /cost_records Get cost records
- * @apiName Get cost records
- * @apiGroup Cost records
+ * @api {get} /fact_expenses Get fact expenses
+ * @apiName Get fact expenses
+ * @apiGroup Fact expenses
  * @apiVersion 1.0.0
  *
  * @apiHeader {String} authorization token
  *
- * @apiSuccess {Object[]} cost_records  Cost records
+ * @apiSuccess {Object[]} fact_expenses Fact expenses
  *
  * @apiSuccessExample Success-Response:
  *  [{
@@ -24,9 +24,12 @@ import CostRecord from 'models/cost_record'
 const list = asyncHandler(async (req, res) => {
   const { id: user_id } = req.user
 
-  const costRecords = await CostRecord.find({ user_id }, 'id name sum currency')
+  const factExpenses = await FactExpense.find(
+    { user_id },
+    'id name sum currency',
+  )
 
-  return res.status(200).json(costRecords)
+  return res.status(200).json(factExpenses)
 })
 
 export default list

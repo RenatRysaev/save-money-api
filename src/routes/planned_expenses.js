@@ -1,14 +1,14 @@
 import { Router } from 'express'
 import { withProtect, withValidationErrorsHandler } from 'utils/route'
 
-import controller from 'controllers/cost_categories'
+import controller from 'controllers/planned_expenses'
 
 const router = new Router()
 
-router.get('/v1/cost_categories', withProtect(), controller.list)
+router.get('/v1/planned_expenses', withProtect(), controller.list)
 
 router.post(
-  '/v1/cost_categories/create',
+  '/v1/planned_expenses/create',
   [
     ...withProtect(),
     ...controller.validationForCreate,
@@ -18,7 +18,7 @@ router.post(
 )
 
 router.patch(
-  '/v1/cost_categories/:id',
+  '/v1/planned_expenses/:id',
   [
     ...withProtect(),
     ...controller.validationForUpdate,
@@ -28,7 +28,7 @@ router.patch(
 )
 
 router.delete(
-  '/v1/cost_categories/:id',
+  '/v1/planned_expenses/:id',
   [
     ...withProtect(),
     ...controller.validationForRemove,

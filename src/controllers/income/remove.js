@@ -14,7 +14,7 @@ import Income from 'models/income'
  *
  * @apiParam {String} id Income id
  *
- * @apiSuccess {String} id - Income id
+ * @apiSuccess {String} id Income id
  *
  * @apiSuccessExample Success-Response:
  *  {

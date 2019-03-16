@@ -1,15 +1,10 @@
 import { Schema } from 'mongoose'
 
-const CostCategorySchema = new Schema({
+const FactExpenseSchema = new Schema({
   user_id: {
     type: String,
     required: true,
     unique: false,
-  },
-  group_id: {
-    type: String,
-    required: false,
-    false: false,
   },
   name: {
     type: String,
@@ -21,11 +16,16 @@ const CostCategorySchema = new Schema({
     required: true,
     unique: false,
   },
-  description: {
+  currency: {
     type: String,
-    required: false,
+    required: true,
+    unique: false,
+  },
+  date: {
+    type: String,
+    required: true,
     unique: false,
   },
 })
 
-export default CostCategorySchema
+export default FactExpenseSchema

@@ -14,8 +14,8 @@ import User from 'models/user'
  * @apiParam {String} name User name
  * @apiParam {String} password User password
  *
- * @apiSuccess {String} name - User name
- * @apiSuccess {String} id - User id
+ * @apiSuccess {String} name User name
+ * @apiSuccess {String} id User id
  *
  * @apiSuccessExample Success-Response:
  *  {

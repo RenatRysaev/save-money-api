@@ -1,10 +1,10 @@
 import { Router } from 'express'
 
 import authRouter from './auth'
-import costCategoriesRouter from './cost-categories'
+import costCategoriesRouter from './planned_expenses'
 import incomeRouter from './income'
 import groupRouter from './group'
-import costRecords from './cost_records'
+import costRecords from './fact_expenses'
 
 const routersInit = () => {
   const router = new Router()

@@ -2,28 +2,28 @@ import pick from 'lodash/pick'
 import asyncHandler from 'express-async-handler'
 import { body } from 'express-validator/check'
 
-import CostCategory from 'models/cost_category'
+import PlannedExpense from 'models/planned_expense'
 
 /**
- * @api {post} /cost_categories/create Create cost category
- * @apiName Create cost category
- * @apiGroup Cost categories
+ * @api {post} /planned_expenses/create Create planned expense
+ * @apiName Create planned expense
+ * @apiGroup Planned expenses
  * @apiVersion 1.0.0
  *
  * @apiHeader {String} authorization token
  *
- * @apiParam {String} name Cost category name
- * @apiParam {Number} sum Planned costs sum
- * @apiParam {String} currency Cost currency
- * @apiParam {String} [description] Cost category description
+ * @apiParam {String} name Planned expense name
+ * @apiParam {Number} sum Planned expense sum
+ * @apiParam {String} currency Planned expense currency
+ * @apiParam {String} [description] Planned expense description
  * @apiParam {String} [group_id] Group id
  *
- * @apiSuccess {String} id - Cost category id
- * @apiSuccess {String} name - Cost category name
- * @apiSuccess {Number} sum - Planned costs sum
- * @apiSuccess {String} currency - Cost currency
- * @apiSuccess {String} [description] - Cost category description
- * @apiSuccess {String} [group_id] - Group id
+ * @apiSuccess {String} id Planned expense id
+ * @apiSuccess {String} name Planned expense name
+ * @apiSuccess {Number} sum Planned expense sum
+ * @apiSuccess {String} currency Planned expense currency
+ * @apiSuccess {String} [description] Planned expense description
+ * @apiSuccess {String} [group_id] Group id
  *
  * @apiSuccessExample Success-Response:
  *  {
@@ -31,7 +31,7 @@ import CostCategory from 'models/cost_category'
  *    id: '123',
  *    sum: 1000,
  *    currency: 'usd',
- *    description: 'Food cost_categories',
+ *    description: 'Food lorem ipsum',
  *    group_id: '268',
  *  }
  */
@@ -46,7 +46,7 @@ const create = asyncHandler(async (req, res) => {
   const { name, sum, description, group_id, currency } = req.body
   const { id: user_id } = req.user
 
-  const costCategory = new CostCategory({
+  const plannedExpense = new PlannedExpense({
     name,
     sum,
     user_id,
@@ -55,12 +55,12 @@ const create = asyncHandler(async (req, res) => {
     group_id,
   })
 
-  await costCategory.save()
+  await plannedExpense.save()
 
   return res
     .status(201)
     .json(
-      pick(costCategory, [
+      pick(plannedExpense, [
         'name',
         'sum',
         'id',
