@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose'
 
-const CostSchema = new Schema({
+const CostCategorySchema = new Schema({
   user_id: {
     type: String,
     required: true,
@@ -28,4 +28,4 @@ const CostSchema = new Schema({
   },
 })
 
-export default CostSchema
+export default CostCategorySchema
