@@ -51,7 +51,9 @@
       "middleware/*": ["src/middleware/*"],
       "config/*": ["src/config/*"],
       "routes/*": ["src/routes/*"],
-      "logger/*": ["src/logger/*"]
+      "logger/*": ["src/logger/*"],
+      "constants/*": ["src/constants/*"],
+      "features/*": ["src/features/*"]
     } /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */,
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                       /* List of folders to include type definitions from. */

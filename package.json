@@ -9,7 +9,7 @@
     "start": "nodemon",
     "compile": "ts-node src/runner.js",
     "build": "webpack --config=webpack/prod.config.js",
-    "generateAPIDoc": "apidoc -i src/controllers -o apidoc",
+    "generateAPIDoc": "apidoc -i src/features -o apidoc",
     "openAPIDoc": "open apidoc/index.html",
     "readAPIDoc": "yarn generateAPIDoc & yarn openAPIDoc"
   },
@@ -76,6 +76,8 @@
     "middleware": "src/middleware",
     "config": "src/config",
     "routes": "src/routes",
-    "logger": "src/logger"
+    "logger": "src/logger",
+    "constants": "src/constants",
+    "features": "src/features"
   }
 }

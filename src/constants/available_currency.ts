@@ -1,0 +1,3 @@
+const AVAILABLE_CURRENCY = ['RUB', 'USD', 'EUR']
+
+export default AVAILABLE_CURRENCY
