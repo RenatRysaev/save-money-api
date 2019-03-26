@@ -6,7 +6,7 @@ import { pick } from 'lodash'
 import User from '../model'
 
 /**
- * @api {post} /user/reg User registration
+ * @api {post} /user/registration User registration
  * @apiName Registration
  * @apiGroup User
  * @apiVersion 1.0.0
@@ -21,9 +21,9 @@ import User from '../model'
  *
  * @apiSuccessExample Success-Response:
  *  {
+ *    id: 'as8745rtbnbr',
  *    login: 'super-hero',
  *    name: 'Renat',
- *    _id: '879',
  *  }
  */
 

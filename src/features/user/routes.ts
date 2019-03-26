@@ -6,7 +6,7 @@ import controller from './controllers'
 const router = Router()
 
 router.post(
-  '/v1/reg',
+  '/v1/registration',
   [...controller.validationForRegistration, ...withValidationErrorsHandler()],
   controller.registration,
 )
