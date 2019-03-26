@@ -12,13 +12,13 @@ const ExpenseSchema = new Schema({
     type: String,
     required: true,
     unique: false,
-    enum: ['planned', 'fact'],
+    enum: ['Planned', 'Actual'],
   },
   kind: {
     type: String,
     required: true,
     unique: false,
-    enum: ['permanent', 'one_time'],
+    enum: ['Permanent', 'One-time'],
   },
   currency: {
     type: String,
