@@ -12,7 +12,7 @@ import Expense from '../model'
  *
  * @apiHeader {String} authorization token
  *
- * @apiParam {String="planned","fact"} [type] Query for get expenses by type
+ * @apiParam {String="planned","actual"} [type] Query for get expenses by type
  *
  * @apiSuccess {Object[]} expenses Expenses
  *
@@ -22,7 +22,7 @@ import Expense from '../model'
  *      id: '123',
  *      sum: 1000,
  *      currency: 'RUB',
- *      type: 'fact',
+ *      type: 'actual',
  *      kind: 'one_time',
  *      date: '29.05.2019'
  *  }]

@@ -18,13 +18,15 @@ import Expense from '../model'
  * @apiParam {String} [name] Expense name
  * @apiParam {String} [date] Expense date
  * @apiParam {String} [currency] Expense currency
- * @apiParam {String} [kind_id] Expense kind_id
+ * @apiParam {String="planned","actual"} [type] Expense type
+ * @apiParam {String="permanent","one_time"} [kind] Expense kind
 
  * @apiSuccess {String} id Expense id
  * @apiSuccess {String} name Expense name
  * @apiSuccess {Number} sum Expense sum
  * @apiSuccess {String} date Expense date
  * @apiSuccess {String} currency Expense currency
+ * @apiSuccess {String} type Expense type
  * @apiSuccess {String} kind Expense kind
  *
  * @apiSuccessExample Success-Response:
@@ -35,7 +37,7 @@ import Expense from '../model'
  *    date: '2019.20.05',
  *    currency: 'EUR',
  *    kind: 'permanent',
- *    type: 'fact',
+ *    type: 'actual',
  *  }
  */
 

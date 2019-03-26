@@ -16,7 +16,7 @@ import Expense from '../model'
  * @apiParam {String} name Expense name
  * @apiParam {Number} sum Expense sum
  * @apiParam {String} date Expense date (YYYY.MM.DD)
- * @apiParam {String="planned","fact"} type Expense type
+ * @apiParam {String="planned","actual"} type Expense type
  * @apiParam {String="permanent","one_time"} kind Expense kind
  * @apiParam {String="RUB","USD","EUR"} currency Expense currency
  *
